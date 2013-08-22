@@ -92,6 +92,39 @@
 
 
 <div class="post">
+  <h3 class="title"><a href="/吐槽/%E4%BD%BF%E7%94%A8%E5%A4%9A%E8%AF%B4/">使用多说</a> <span class="date">2013-08-22</span></h3>
+
+  <p>Github不亏为程序员的Facebook，早上我在gor提交了一个issue说可以考虑支持下友言，结果作者下午就回复了，并且增加了这个功能，然后正好有另外的开发者完成了多说的挂件，然后发生的故事就是这个blog的评论由多说来负责了。</p>
+
+<h2>多说使用</h2>
+
+<p>本来只注意到友言，但正好看到gor里面有人实现了一个多说的挂件，然后看了一下多说，发现蛮不错的，真的做到了评论社交化，而且把友言和加网整合到一起整合的很好，这完全就是一个评论的SNS啊。<br />
+接下来的问题就是comments里面的config.yml配置问题了，结果蛋疼了，多说也是靠一个short<em>name绑定的，问题是怎么申请获取这个short_name。<br />
+看来多说官网，发现是申请多说二级域名，然后就能获得short_name了。多说的官网还反复提到神马后台管理啊，就是找不到申请二级域名的地方，这不是坑爹嘛。<br />
+最终，在我不断的寻找点击后，终于找到了那个链接：</em><a href="http://duoshuo.com/create-site/">获取多说通用代码</a>_<br />
+填写下申请内容，申请了puhaoblog.duoshuo.com，这样我的short_name就是puhaoblog，这样我再去配置下blog里面comment的config.yml，就搞定了。</p>
+
+<pre><code>layout : duoshuo
+duoshuo :
+  short_name : puhaoblog
+livefyre :
+  site_id : 123
+intensedebate :
+  account : 123abc
+facebook :
+  appid : 123
+  num_posts: 5
+  width: 580
+  colorscheme: light
+</code></pre>
+
+
+  <div class="more">
+    <a href="/吐槽/%E4%BD%BF%E7%94%A8%E5%A4%9A%E8%AF%B4/" class="btn">read more..</a>
+  </div>
+</div>
+
+<div class="post">
   <h3 class="title"><a href="/吐槽/Blog%E6%8A%98%E8%85%BE/">Blog折腾</a> <span class="date">2013-08-22</span></h3>
 
   <p>在程序界有一句话很流行,不要重复造轮子。哦，我不是来讨论<a href="http://taosay.net/?p=575">重复造轮子</a>这件事情的。<br />
