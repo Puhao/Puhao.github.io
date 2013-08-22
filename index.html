@@ -33,7 +33,7 @@
     <div class="navbar">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/">Puhao&#39;s Blog</a>
+          <a class="brand" href="/">Puhao</a>
           <ul class="nav">
             
               
@@ -123,20 +123,6 @@
 </div>
 
 <div class="post">
-  <h3 class="title"><a href="/吐槽/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/">新的开始</a> <span class="date">2013-08-21</span></h3>
-
-  <p>在停止创作了N年之后，我又开始我的写作生涯了。一直想建立个自己的blog，最早想用wordpress这个框架，后来不了了之。后面自己接触到了markdown，然后觉得直接用markdown来写blog是一件多么酷的事情，然后把blog托管在github上面。<br />
-查了一些相关的教程，怎么利用github的page来写文章，但是感觉虽然很geek，但是很烦。终于当我看到了gor，发现这些麻烦的事情又被简化了很多，我立马就动手完成了这个blog。不过作为一个码农，是否惭愧，本来这些简化的事情就是应该是geeker干的事情，结果却沦为了一个只会使用别人工具的码农，o(╯□╰)o。<br />
-另外，我左手上带着一个fitbit flex，然后作为一个geeker，你懂得。<br />
-神马？需求变复杂了？静态页面展示不了了？别忘了我还有raspberry pi呢。</p>
-
-
-  <div class="more">
-    <a href="/吐槽/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/" class="btn">read more..</a>
-  </div>
-</div>
-
-<div class="post">
   <h3 class="title"><a href="/随想/%E8%AE%B0%E5%BF%86/">记忆</a> <span class="date">2013-08-21</span></h3>
 
   <p>自从接触了markdown之后，我就突然又爱上了写作，突然又想写点什么了，然而有时候也只是写在日记本里。每当自己翻开大学时候写的日记，总想对那个毛头小孩说句：少年，你too young，too simple。成长是一种说不出的滋味。</p>
@@ -154,6 +140,20 @@
 
   <div class="more">
     <a href="/随想/%E8%AE%B0%E5%BF%86/" class="btn">read more..</a>
+  </div>
+</div>
+
+<div class="post">
+  <h3 class="title"><a href="/吐槽/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/">新的开始</a> <span class="date">2013-08-21</span></h3>
+
+  <p>在停止创作了N年之后，我又开始我的写作生涯了。一直想建立个自己的blog，最早想用wordpress这个框架，后来不了了之。后面自己接触到了markdown，然后觉得直接用markdown来写blog是一件多么酷的事情，然后把blog托管在github上面。<br />
+查了一些相关的教程，怎么利用github的page来写文章，但是感觉虽然很geek，但是很烦。终于当我看到了gor，发现这些麻烦的事情又被简化了很多，我立马就动手完成了这个blog。不过作为一个码农，是否惭愧，本来这些简化的事情就是应该是geeker干的事情，结果却沦为了一个只会使用别人工具的码农，o(╯□╰)o。<br />
+另外，我左手上带着一个fitbit flex，然后作为一个geeker，你懂得。<br />
+神马？需求变复杂了？静态页面展示不了了？别忘了我还有raspberry pi呢。</p>
+
+
+  <div class="more">
+    <a href="/吐槽/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/" class="btn">read more..</a>
   </div>
 </div>
 
@@ -212,11 +212,20 @@
 </script>
 
     
-<script>
-    var _gaq=[['_setAccount','UA-43356274-1'],['_trackPageview']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-43356274-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
 </script>
   </body>
 </html>
