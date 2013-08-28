@@ -4,6 +4,11 @@
 		<loc>http://blog.puhao.me/</loc>
 	</url>
 	<url>
+		<loc>http://blog.puhao.me/算法/Word-Ladder/</loc>
+		<lastmod>2013-08-28</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 		<loc>http://blog.puhao.me/FPGA/NetFPGA/</loc>
 		<lastmod>2013-08-24</lastmod>
 		<changefreq>weekly</changefreq>
