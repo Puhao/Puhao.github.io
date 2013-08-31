@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>新的开始</title>
+    <title>Raspberry Pi下使用MongoDB</title>
+  
+    <meta name="description" content="Raspberry Pi下折腾MongoDB">
   
     <meta name="author" content="Puhao Yuan">
 
@@ -85,29 +87,111 @@
 
       <div class="content">
         <div class="page-header">
-  <h1>新的开始 </h1>
+  <h1>Raspberry Pi下使用MongoDB </h1>
 </div>
 
 <div class="row">
   <div class="span8">
-    <p>在停止创作了N年之后，我又开始我的写作生涯了。一直想建立个自己的blog，最早想用wordpress这个框架，后来不了了之。后面自己接触到了markdown，然后觉得直接用markdown来写blog是一件多么酷的事情，然后把blog托管在github上面。<br />
-查了一些相关的教程，怎么利用github的page来写文章，但是感觉虽然很geek，但是很烦。终于当我看到了gor，发现这些麻烦的事情又被简化了很多，我立马就动手完成了这个blog。不过作为一个码农，是否惭愧，本来这些简化的事情就是应该是geeker干的事情，结果却沦为了一个只会使用别人工具的码农，o(╯□╰)o。<br />
-另外，我左手上带着一个fitbit flex，然后作为一个geeker，你懂得。<br />
-神马？需求变复杂了？静态页面展示不了了？别忘了我还有raspberry pi呢。</p>
+    <p>其实我我更想把标题改为Raspberry Pi下折腾MongoDB。在开始折腾前，先介绍一个linux下的工具。</p>
+
+<h2>安装准备</h2>
+
+<p>在很多场景下，我都是都是SSH登录到Linux主机进行操作的，而不是直接在Linux主机上面通过键盘操作。一旦我们断开连接，如果任务没有执行完，那这个我们在这个SSH下发起的任务都会被终止掉，这个时候我们借助screen可以很好的帮我们把这个问题解决掉。关于screen，推荐阅读下<a href="http://www.ibm.com/developerworks/cn/linux/l-cn-screen/">《Linux技巧：使用screen管理你的远程会话》</a>,详细介绍了为什么会关闭，到怎么使用screen。<br />
+Raspberry Pi官方提供的镜像下面没有自带screen，因此需要我们先安装下。</p>
+
+<pre><code>sudo apt-get install screen
+</code></pre>
+
+<h2>安装MongoDB</h2>
+
+<p>由于没有官方镜像提供，我们选择以源码方式安装。</p>
+
+<ol>
+<li><p>相关工具安装</p>
+
+<pre><code>sudo apt-get install build-essential libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-thread-dev scons libboost-all-dev git
+</code></pre></li>
+
+<li><p>获取源代码<br />
+MongoDB的源代码是基于x86机器的little endian的，Raspberry Pi的CPU是基于ARM的big endian，在github上面有big endian的<a href="https://github.com/skrabban/mongo-nonx86">nonx86版本</a>提供。</p>
+
+<pre><code>git clone https://github.com/skrabban/mongo-nonx86
+</code></pre></li>
+
+<li><p>编译安装</p>
+
+<p>如果是256m内存版本的Raspberry Pi，则编译安装的时候会出错，显示内存不足。因此还需要修改swap配置。修改<code>/etc/dphys-swapfile</code>，把<code>CONF_SWAPSIZE</code> 改成200。由于编译安装时间很长，需要几个小时，这个时候就可以借助screen了，命令输入完后做其他事情去好了，等待完成。</p>
+
+<pre><code>cd mongo-nonx86
+sudo scons
+sudo scons --prefix=/opt/mongo install
+</code></pre></li>
+</ol>
+
+<h2>配置MongoDB</h2>
+
+<p>安装完MongoDB后，简单配置就可以使用MongoDB了，建议把MongoDB作为系统服务的一部分。</p>
+
+<ol>
+<li><p>设置工作目录</p>
+
+<ul>
+<li><p>增加用户</p>
+
+<pre><code> sudo adduser mongodb 
+</code></pre></li>
+
+<li><p>创建日志目录</p>
+
+<pre><code>mkdir /var/log/mongodb/
+sudo chown mongodb /var/log/mongodb/
+</code></pre></li>
+
+<li><p>创建数据库目录</p>
+
+<pre><code>mkdir /var/lib/mongodb
+sudo chown mongodb /var/lib/mongodb 
+</code></pre></li>
+</ul></li>
+
+<li><p>增加系统服务</p>
+
+<p>源代码里面已经有系统服务的配置脚本了，不需要我们自己来写了。</p>
+
+<pre><code>sudo cp debian/init.d /etc/init.d/mongod
+sudo cp debian/mongodb.conf /etc/
+</code></pre>
+
+<p>修改下系统服务脚本<code>/etc/ini.d/mongod</code>里面50行，把<code>DAMEON</code>设置为<code>/opt/mongo/bin/mongod</code>,或者我们也可以不修改文件，直接建立个软连接。</p>
+
+<pre><code>sudo ln -s /opt/mongo/bin/mongod /usr/bin/mongod
+</code></pre>
+
+<p>使用chkconfig 增加系统服务，Raspberry Pi没有自带，需先安装下。</p>
+
+<pre><code>sudo apt-get install chkconfig
+sudo chkconfig --add mongod
+</code></pre></li>
+</ol>
+
+<h2>使用MongoDB</h2>
+
+<p>Raspberry Pi下面只能使用32位版本的MongoDB。32位版本的MongoDB有个限制就是最多处理2G的数据。另外，32位版本的MongoDB启动的时候，默认操作journal是不开启的，如果意外关闭MongoDB，则再次启动前需要进行repair修复。如果想避免这种情况，可以修改启动脚本，将journal开启，这样由于journal的开启占用总的数据，32位的MongoDB能处理的数据还要再下降一些。随着数据的增多，我遇到过在导出数据的时候出错，查看log文件发现是内存不够，建议更换到64位版本的MongoDB。<br />
+可以使用asyn，share等方式配置MongoDB来同步数据。如果想到Raspberry Pi里面的数据导入到其他服务器，除了前面的方法外，还可以直接使用 mongodump导出数据，然后 mongorestore来完成了数据的迁移。</p>
 
     <hr>
     <div class="pagination">
       <ul>
         <ul>
           
-            <li class="prev"><a href="/随想/%E8%AE%B0%E5%BF%86/" title="记忆">&larr; Previous</a></li>
           
+            <li class="prev disabled"><a>&larr; Previous</a></li>
           
 
             <li><a href="/archive">Archive</a></li>
 
           
-            <li class="next"><a href="/2013/new-born.html" title="你的第一篇博客">Next &rarr;</a></li>
+            <li class="next"><a href="/算法/8%E6%9C%8830%E6%97%A5PAT%E8%80%83%E8%AF%95/" title="8月30日PAT考试">Next &rarr;</a></li>
           
           
         </ul>
@@ -134,13 +218,13 @@
   
   <div class="span4">
     <h4>Published</h4>
-    <div class="date"><span>2013-08-21</span></div>
+    <div class="date"><span>2013-08-31</span></div>
     <br>
     <h4>Categories</h4>
     <ul class="tag_box">
     
       <li>
-  <a href="/categories/#%E5%90%90%E6%A7%BD-ref">吐槽 <span>3</span></a>
+  <a href="/categories/#%E6%8A%80%E6%9C%AF-ref">技术 <span>2</span></a>
 </li>
     
     </ul>
@@ -149,11 +233,19 @@
     <ul class="tag_box">
     
       <li>
-  <a href="/tags/#%E5%86%99%E4%BD%9C-ref">写作 <span>1</span></a>
+  <a href="/tags/#MongoDB-ref">MongoDB <span>1</span></a>
 </li>
     
       <li>
-  <a href="/tags/#GitHub-ref">GitHub <span>3</span></a>
+  <a href="/tags/#Raspberry-Pi-ref">Raspberry Pi <span>2</span></a>
+</li>
+    
+      <li>
+  <a href="/tags/#Linux-ref">Linux <span>1</span></a>
+</li>
+    
+      <li>
+  <a href="/tags/#screen-ref">screen <span>1</span></a>
 </li>
     
     </ul>
