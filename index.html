@@ -145,63 +145,20 @@ MongoDB的源代码是基于x86机器的little endian的，Raspberry Pi的CPU是
 
 <h2>请无视这段吐槽，直接看下一段解答</h2>
 
-<p><a href="http://pat.zju.edu.cn/">PAT</a>考试是我们学校学院搞起的程序能力测试。我在报名缴费情况下，信心满满的第一次踏上了这样的考试，结果铩羽而归。考试用的计算机只有windows系统，没有linux，然后windows下面没有gcc，只有VS给你调试用。平常习惯了在sublime里面写代码，gcc的完美融合，让我用的十分顺手。我完全没有用过VS啊，VC6.0的时候还是会建立个consle工程的，然后VS里面最后貌似是成功创建出了工程，然后把sublime里面写的代码粘贴过去，各种报错，非常奇怪，然后我就放弃了，渣渣程序员，非法调试的话，做不到一次性成功啊。我猜测估计是文件编码不一样造成了这种奇怪的错误。然后就坐在那儿做题吧，考试肯定是0分了，尝试了几次提交，编译错误，然后根据错误信息再来改代码，太蛋疼了，还是放弃了，果断丢人的0分啊！没经验，too young，too simple, alway naive<br />
-回到实验室，在自己的MBP上面重新写了遍代码，但是OJ已经关闭了，不能测试最后写的程序。</p>
+<p><a href="http://pat.zju.edu.cn/">PAT</a>考试是我们学校学院搞起的程序能力测试。我在报名缴费情况下，信心满满的第一次踏上了这样的考试，结果铩羽而归。考试用的计算机只有windows系统，没有linux，然后windows下面没有gcc，只有VS给你调试用。平常习惯了在sublime里面写代码，gcc的完美融合，让我用的十分顺手。我完全没有用过VS啊，VC6.0的时候还是会建立个consle工程的，然后VS里面最后貌似是成功创建出了工程，然后把sublime里面写的代码粘贴过去，各种报错，非常奇怪，然后我就放弃了，渣渣程序员，没法调试的话，做不到一次性成功啊。我猜测估计是文件编码不一样造成了这种奇怪的错误。然后就坐在那儿做题吧，考试肯定是0分了，尝试了几次提交，编译错误，然后根据错误信息再来改代码，太蛋疼了，还是放弃了，果断丢人的0分啊！没经验，too young，too simple, alway naive</p>
+
+<p>回到实验室，在自己的MBP上面重新写了遍代码，但是OJ已经关闭了，不能测试最后写的程序。
+p.s后来这几道题目放到了<a href="http://pat.zju.edu.cn/contests/pat-a-practise">PAT的advanced</a>练习里面，这样就可以进行OJ测试了。然后测试发现了几个坑问题，代码后来调整到了可以过OJ测试。</p>
 
 <h2>题目分析解答</h2>
 
 <p>这次做的<a href="http://pat.zju.edu.cn/contests/pat-a-101-105-2-2013-08-30">题目</a>。<br />
-<a href="https://github.com/Puhao/PAT/tree/master/PAT(A)101-105-2-2013-08-30">题目解答</a></p>
+<a href="https://github.com/Puhao/PAT/tree/master/PAT(A)101-105-2-2013-08-30">题目解答</a><br />
+看到一个别人的<a href="http://biaobiaoqi.me/blog/2013/08/31/pat-1061-pat-1064/">详细分析解答</a>，也推荐阅读下。</p>
 
 <h2><a href="http://pat.zju.edu.cn/contests/pat-a-101-105-2-2013-08-30/A">Dating</a></h2>
 
-<p>主要是使用下STL的string，然后找到第一次相等，第二次相等的，然后控制输出格式。</p>
-
-<pre><code>void dating(string a,string b,string c,string d)
-{
-    char FstLet,SecLet;
-    int count = 0;
-    for(int i=0;i&lt;a.size();i++)
-    {
-        if ((a[i] == b[i]) &amp;&amp; (isupper(a[i])))
-        {
-            if (count == 0)
-            {
-                count = 1;
-                FstLet = a[i];
-            }
-            if (count == 1)
-            {
-                count = 2;
-                SecLet = a[i];
-            }
-        }
-    }
-    string Week[] = {&quot;MON&quot;, &quot;TUE&quot;, &quot;WED&quot;, &quot;THU&quot;, &quot;FRI&quot;,&quot;SAT&quot;,&quot;SUN&quot;};
-    int hour,minu;
-    if (isdigit(SecLet))
-        hour = SecLet - '0';
-    else
-        hour = SecLet - 'A' + 10;
-    count = 0;
-    for(int i=0;i&lt;c.size();i++)
-    {
-        if ( (c[i] == d[i]) &amp;&amp; (isalpha(c[i])) )
-        {
-            if (count == 0)
-            {
-                count = 1;
-                minu = i;
-            }
-        }
-
-    }
-    cout.fill('0');
-    cout &lt;&lt; Week[FstLet - 'A'] &lt;&lt; &quot; &quot; &lt;&lt; setw(2) &lt;&lt; hour &lt;&lt; &quot;:&quot; &lt;&lt; setw(2) &lt;&lt; minu &lt;&lt; endl;
-    return;
-
-}
-</code></pre>
+<p>这道题目其实有歧义，表述上面有问题。</p>
 
 
   <div class="more">
