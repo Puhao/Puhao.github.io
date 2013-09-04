@@ -174,16 +174,7 @@ MongoDB的源代码是基于x86机器的little endian的，Raspberry Pi的CPU是
 <div class="post">
   <h3 class="title"><a href="/算法/8%E6%9C%8830%E6%97%A5PAT%E8%80%83%E8%AF%95/">8月30日PAT考试</a> <span class="date">2013-08-30</span></h3>
 
-  <p>作为一名无证程序员，在即将找工作的情况下，我当然也随大流准备考个证，告别无证程序员生涯。然后现实生活无情的打击了我。</p>
-
-<h2>请无视这段吐槽，直接看下一段解答</h2>
-
-<p><a href="http://pat.zju.edu.cn/">PAT</a>考试是我们学校学院搞起的程序能力测试。我在报名缴费情况下，信心满满的第一次踏上了这样的考试，结果铩羽而归。考试用的计算机只有windows系统，没有linux，然后windows下面没有gcc，只有VS给你调试用。平常习惯了在sublime里面写代码，gcc的完美融合，让我用的十分顺手。我完全没有用过VS啊，VC6.0的时候还是会建立个consle工程的，然后VS里面最后貌似是成功创建出了工程，然后把sublime里面写的代码粘贴过去，各种报错，非常奇怪，然后我就放弃了，渣渣程序员，没法调试的话，做不到一次性成功啊。我猜测估计是文件编码不一样造成了这种奇怪的错误。然后就坐在那儿做题吧，考试肯定是0分了，尝试了几次提交，编译错误，然后根据错误信息再来改代码，太蛋疼了，还是放弃了，果断丢人的0分啊！没经验，too young，too simple, alway naive</p>
-
-<p>回到实验室，在自己的MBP上面重新写了遍代码，但是OJ已经关闭了，不能测试最后写的程序。
-p.s后来这几道题目放到了<a href="http://pat.zju.edu.cn/contests/pat-a-practise">PAT的advanced</a>练习里面，这样就可以进行OJ测试了。然后测试发现了几个坑问题，代码后来调整到了可以过OJ测试。</p>
-
-<h2>题目分析解答</h2>
+  <h2>题目分析解答</h2>
 
 <p>这次做的<a href="http://pat.zju.edu.cn/contests/pat-a-101-105-2-2013-08-30">题目</a>。<br />
 <a href="https://github.com/Puhao/PAT/tree/master/PAT(A)101-105-2-2013-08-30">题目解答</a><br />
@@ -192,6 +183,58 @@ p.s后来这几道题目放到了<a href="http://pat.zju.edu.cn/contests/pat-a-p
 <h2><a href="http://pat.zju.edu.cn/contests/pat-a-101-105-2-2013-08-30/A">Dating</a></h2>
 
 <p>这道题目其实有歧义，表述上面有问题。</p>
+
+<p>出题的意思是先比较前面两个string找到日期，然后找到小时，然后比较后面两个string，找到分钟，最后控制输出格式。</p>
+
+<pre><code>void dating(string a,string b,string c,string d)
+{
+    int day = -1;
+    int hour = -1;
+    int min = -1;
+    for(int i=0;i&lt;a.size();i++)
+    {
+        if (a[i] == b[i]) 
+        {
+            if (day == -1)
+            {
+                if(a[i] &gt;= 'A' &amp;&amp; a[i] &lt;= 'G')
+                {
+                    day = a[i] - 'A';
+                }
+            }
+            else if (hour == -1)
+            {
+                if(a[i] &gt;= 'A' &amp;&amp; a[i] &lt;= 'N')
+                {
+                    hour = a[i] - 'A' + 10;
+                    break;
+                }
+                else if (isdigit(a[i]))
+                {
+                    hour = a[i] - '0';
+                    break;
+                }
+            }
+        }
+    }
+
+    string Week[] = {&quot;MON&quot;, &quot;TUE&quot;, &quot;WED&quot;, &quot;THU&quot;, &quot;FRI&quot;,&quot;SAT&quot;,&quot;SUN&quot;};
+    for(int i=0;i&lt;c.size();i++)
+    {
+        if ( (c[i] == d[i]) &amp;&amp; (isalpha(c[i])) )
+        {
+            min = i;
+            break;
+        }
+
+    }
+    cout.fill('0');
+    cout &lt;&lt; Week[day] &lt;&lt; &quot; &quot; &lt;&lt; setw(2) &lt;&lt; hour &lt;&lt; &quot;:&quot; &lt;&lt; setw(2) &lt;&lt; min &lt;&lt; endl;
+    return;
+
+}
+
+</code></pre>
 
 
   <div class="more">
