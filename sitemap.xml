@@ -4,6 +4,11 @@
 		<loc>http://blog.puhao.me/</loc>
 	</url>
 	<url>
+		<loc>http://blog.puhao.me/技术/%E5%88%A9%E7%94%A8Xively%E5%B9%B3%E5%8F%B0%E5%B1%95%E7%A4%BA%E6%B0%94%E8%B1%A1%E6%95%B0%E6%8D%AE/</loc>
+		<lastmod>2013-09-07</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 		<loc>http://blog.puhao.me/吐槽/CC98%E5%BF%83%E7%81%B5%E9%95%BF%E8%B4%B4%E5%85%B3%E9%94%AE%E8%AF%8D%E6%B1%87%E6%80%BB/</loc>
 		<lastmod>2013-09-01</lastmod>
 		<changefreq>weekly</changefreq>
@@ -34,12 +39,12 @@
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://blog.puhao.me/吐槽/%E4%BD%BF%E7%94%A8%E5%A4%9A%E8%AF%B4/</loc>
+		<loc>http://blog.puhao.me/Blog/%E4%BD%BF%E7%94%A8%E5%A4%9A%E8%AF%B4/</loc>
 		<lastmod>2013-08-22</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://blog.puhao.me/吐槽/Blog%E6%8A%98%E8%85%BE/</loc>
+		<loc>http://blog.puhao.me/Blog/Blog%E6%8A%98%E8%85%BE/</loc>
 		<lastmod>2013-08-22</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>

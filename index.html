@@ -106,6 +106,36 @@
 
 
 <div class="post">
+  <h3 class="title"><a href="/技术/%E5%88%A9%E7%94%A8Xively%E5%B9%B3%E5%8F%B0%E5%B1%95%E7%A4%BA%E6%B0%94%E8%B1%A1%E6%95%B0%E6%8D%AE/">利用Xively平台展示气象数据</a> <span class="date">2013-09-07</span></h3>
+
+  <p>利用<a href="https://xively.com/">Xively</a>物联网平台，我的blog里面已经可以展示我阳台的<a href="http://blog.puhao.me/weather/">气象数据了</a>。Xively网站上可以看<a href="https://xively.com/feeds/1768542106">详细数据</a>,Yeelink有更多<a href="http://www.yeelink.net/devices/3762#">历史数据</a>。</p>
+
+<p>这些数据是由Arduino完成的采集，然后通过Zigbee网络传输到了Raspberry Pi，Raspberry Pi再将这些采集的数据传输到了Xively。</p>
+
+<h2>传送到Xively</h2>
+
+<p><a href="https://xively.com/">Xively</a>网站提供了POST接口供我们传输数据，但同时官网提供了不同语言下的SDK，这样传输数据非常方便。<br />
+首先，我们需要先在Xively网站申请注册一个账号，然后注册一个设备，获得两个关键的参数<code>API_KEY</code>和<code>Feed ID</code>。其中<code>API_KEY</code>是用来完成用户验证的，<code>Feed ID</code>则用来确定传输数据的目的地，也就是API接口地址。
+在每一个FEED下面，我们可以添加不同的channel来接收显示不同的数据。<br />
+以官网的基于<a href="https://xively.com/dev/tutorials/pi/">Raspberry Pi教程</a>为例，使用python SDK完成数据传输。<br />
+首先需安装python SDK</p>
+
+<pre><code>pip install xively-python
+</code></pre>
+
+<p>SDK的源码在<a href="https://github.com/xively/xively-python">公开在GitHub上</a>，也有个简单的使用说明。</p>
+
+<p>不过我们可以按照教程，使用下面这段代码来实验下。
+<script src="https://gist.github.com/xively-gists/5565335.js"></script>
+运行程序的时候直接使用自己的<code>API_KEY</code>和<code>Feed ID</code>。在这个示例代码中，创建了一个名为load_avg的channel，来传送显示Raspberry Pi的CPU平均负载。</p>
+
+
+  <div class="more">
+    <a href="/技术/%E5%88%A9%E7%94%A8Xively%E5%B9%B3%E5%8F%B0%E5%B1%95%E7%A4%BA%E6%B0%94%E8%B1%A1%E6%95%B0%E6%8D%AE/" class="btn">read more..</a>
+  </div>
+</div>
+
+<div class="post">
   <h3 class="title"><a href="/吐槽/CC98%E5%BF%83%E7%81%B5%E9%95%BF%E8%B4%B4%E5%85%B3%E9%94%AE%E8%AF%8D%E6%B1%87%E6%80%BB/">CC98心灵长贴关键词汇总</a> <span class="date">2013-09-01</span></h3>
 
   <h2>两个问题</h2>
@@ -323,7 +353,7 @@ FPGA有一大天生的优势就是能够集成软件的易用与硬件的高效�
 </div>
 
 <div class="post">
-  <h3 class="title"><a href="/吐槽/%E4%BD%BF%E7%94%A8%E5%A4%9A%E8%AF%B4/">使用多说</a> <span class="date">2013-08-22</span></h3>
+  <h3 class="title"><a href="/Blog/%E4%BD%BF%E7%94%A8%E5%A4%9A%E8%AF%B4/">使用多说</a> <span class="date">2013-08-22</span></h3>
 
   <p>Github不亏为程序员的Facebook，早上我在gor提交了一个issue说可以考虑支持下友言，结果作者下午就回复了，并且增加了这个功能，然后正好有另外的开发者完成了多说的挂件，然后发生的故事就是这个blog的评论由多说来负责了。</p>
 
@@ -352,12 +382,12 @@ facebook :
 
 
   <div class="more">
-    <a href="/吐槽/%E4%BD%BF%E7%94%A8%E5%A4%9A%E8%AF%B4/" class="btn">read more..</a>
+    <a href="/Blog/%E4%BD%BF%E7%94%A8%E5%A4%9A%E8%AF%B4/" class="btn">read more..</a>
   </div>
 </div>
 
 <div class="post">
-  <h3 class="title"><a href="/吐槽/Blog%E6%8A%98%E8%85%BE/">Blog折腾</a> <span class="date">2013-08-22</span></h3>
+  <h3 class="title"><a href="/Blog/Blog%E6%8A%98%E8%85%BE/">Blog折腾</a> <span class="date">2013-08-22</span></h3>
 
   <p>在程序界有一句话很流行,不要重复造轮子。哦，我不是来讨论<a href="http://taosay.net/?p=575">重复造轮子</a>这件事情的。<br />
 昨天用gor生成了自己的blog，然后我折腾的本性又显示出来了，当然要添加点自己的玩意，随着折腾进行发现自己又陷入了程序员重复造轮子的话题。</p>
@@ -382,7 +412,7 @@ facebook :
 
 
   <div class="more">
-    <a href="/吐槽/Blog%E6%8A%98%E8%85%BE/" class="btn">read more..</a>
+    <a href="/Blog/Blog%E6%8A%98%E8%85%BE/" class="btn">read more..</a>
   </div>
 </div>
 
@@ -404,20 +434,6 @@ facebook :
 
   <div class="more">
     <a href="/随想/%E8%AE%B0%E5%BF%86/" class="btn">read more..</a>
-  </div>
-</div>
-
-<div class="post">
-  <h3 class="title"><a href="/吐槽/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/">新的开始</a> <span class="date">2013-08-21</span></h3>
-
-  <p>在停止创作了N年之后，我又开始我的写作生涯了。一直想建立个自己的blog，最早想用wordpress这个框架，后来不了了之。后面自己接触到了markdown，然后觉得直接用markdown来写blog是一件多么酷的事情，然后把blog托管在github上面。<br />
-查了一些相关的教程，怎么利用github的page来写文章，但是感觉虽然很geek，但是很烦。终于当我看到了gor，发现这些麻烦的事情又被简化了很多，我立马就动手完成了这个blog。不过作为一个码农，是否惭愧，本来这些简化的事情就是应该是geeker干的事情，结果却沦为了一个只会使用别人工具的码农，o(╯□╰)o。<br />
-另外，我左手上带着一个fitbit flex，然后作为一个geeker，你懂得。<br />
-神马？需求变复杂了？静态页面展示不了了？别忘了我还有raspberry pi呢。</p>
-
-
-  <div class="more">
-    <a href="/吐槽/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/" class="btn">read more..</a>
   </div>
 </div>
 

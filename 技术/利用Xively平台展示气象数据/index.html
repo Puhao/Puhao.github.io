@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>利用Xively平台展示气象数据</title>
+  
+    <meta name="author" content="Puhao Yuan">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/twitter/stylesheets/bootstrap.min.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/stylesheets/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/widgets/google_prettify/stylesheets/twitter-bootstrap.css" type="text/css" rel="stylesheet" media="all">
+ 
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  <link rel="shortcut icon" href="http://tp4.sinaimg.cn/1353248403/50/22842818103/1">
+  </head>
+
+  <body>
+  <a href="https://github.com/Puhao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Puhao</a>
+          <ul class="nav">
+            
+              
+
+
+  <li><a href="/archive">Archive</a></li>
+
+
+            
+              
+
+
+  <li><a href="/tags">Tags</a></li>
+
+
+            
+              
+
+
+  <li><a href="/categories">Categories</a></li>
+
+
+            
+              
+
+
+  <li><a href="/pages">Pages</a></li>
+
+
+            
+              
+
+
+  <li><a href="/weather">浙大天气</a></li>
+
+
+            
+              
+
+
+  <li><a href="/about">About Me</a></li>
+
+
+            
+            <li style="padding-left:10px">
+              <form class="navbar-search pull-right" method="GET" action="https://www.google.com/search">
+                <input type="text" name="as_q" class="search-query" placeholder=" 搜搜看... ">
+                <input type="hidden" name="as_sitesearch" value="blog.puhao.me">
+              </form>               
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <div class="page-header">
+  <h1>利用Xively平台展示气象数据 </h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p>利用<a href="https://xively.com/">Xively</a>物联网平台，我的blog里面已经可以展示我阳台的<a href="http://blog.puhao.me/weather/">气象数据了</a>。Xively网站上可以看<a href="https://xively.com/feeds/1768542106">详细数据</a>,Yeelink有更多<a href="http://www.yeelink.net/devices/3762#">历史数据</a>。</p>
+
+<p>这些数据是由Arduino完成的采集，然后通过Zigbee网络传输到了Raspberry Pi，Raspberry Pi再将这些采集的数据传输到了Xively。</p>
+
+<h2>传送到Xively</h2>
+
+<p><a href="https://xively.com/">Xively</a>网站提供了POST接口供我们传输数据，但同时官网提供了不同语言下的SDK，这样传输数据非常方便。<br />
+首先，我们需要先在Xively网站申请注册一个账号，然后注册一个设备，获得两个关键的参数<code>API_KEY</code>和<code>Feed ID</code>。其中<code>API_KEY</code>是用来完成用户验证的，<code>Feed ID</code>则用来确定传输数据的目的地，也就是API接口地址。
+在每一个FEED下面，我们可以添加不同的channel来接收显示不同的数据。<br />
+以官网的基于<a href="https://xively.com/dev/tutorials/pi/">Raspberry Pi教程</a>为例，使用python SDK完成数据传输。<br />
+首先需安装python SDK</p>
+
+<pre><code>pip install xively-python
+</code></pre>
+
+<p>SDK的源码在<a href="https://github.com/xively/xively-python">公开在GitHub上</a>，也有个简单的使用说明。</p>
+
+<p>不过我们可以按照教程，使用下面这段代码来实验下。
+<script src="https://gist.github.com/xively-gists/5565335.js"></script>
+运行程序的时候直接使用自己的<code>API_KEY</code>和<code>Feed ID</code>。在这个示例代码中，创建了一个名为load_avg的channel，来传送显示Raspberry Pi的CPU平均负载。</p>
+
+<p>同理，在这个示例程序上面，简单的改动下，增加四个不同的channels来传输显示温度、湿度、气压、光照数据。<br />
+下图中，Raspberry Pi通过Zigbee接收采集的数据，传输到Xively。
+<img src="http://pic.yupoo.com/saint-zju/D8ZyNSfa/medium.jpg" alt="" />
+</p>
+
+<h2>在第三方网站展示数据</h2>
+
+<p>这个Blog本身托管在GitHub的Pages上面，都是些静态页面，如果要获得像动态页面的效果，一种方式就是通过内嵌JS代码，让浏览器去执行那些js代码来实现各种功能，比如博客下面的评论功能，就是由多说提供的。<br />
+Xively提供了<a href="https://github.com/xively/xively-js">JS的SDK</a>,也有<a href="https://xively.com/dev/tutorials/channel-viz/">基于JS的教程</a>，提供了<a href="http://xively.github.io/channel-viz/">Demo演示</a>。<br />
+不过Xively的JS的SDK教程还没有完善好，使用还不是十分方便，在这里我用了另外一个API接口，直接生成一张图片显示在Blog里面。</p>
+
+<pre><code>&lt;img src=&quot;https://api.cosm.com/v2/feeds/&lt;FEED ID&gt;/datastreams/&lt;channnel&gt;.png?width=340&amp;height=180&amp;colour=%23f15a24&amp;duration=12hours&amp;title=阳台温度&amp;show_axis_labels=false&amp;detailed_grid=true&amp;scale=&amp;timezone=8&quot;/&gt;
+</code></pre>
+
+<p>通过制定FEED ID和channel名词就可以显示对应的数据图片，在get参数里面我们可以指定好图片的大小，颜色，显示数据范围，标题等。<br />
+下图显示的是过去12小时的阳台温度数据。</p>
+
+<p><img src="https://api.cosm.com/v2/feeds/1768542106/datastreams/temperature.png?width=340&height=180&colour=%23f15a24&duration=12hours&title=阳台温度&show_axis_labels=false&detailed_grid=true&scale=&timezone=8"/></p>
+
+<pre><code>&lt;img src=&quot;https://api.cosm.com/v2/feeds/1768542106/datastreams/temperature.png?width=340&amp;height=180&amp;colour=%23f15a24&amp;duration=12hours&amp;title=阳台温度&amp;show_axis_labels=false&amp;detailed_grid=true&amp;scale=&amp;timezone=8&quot;/&gt;
+</code></pre>
+
+<h2>气象站数据来源</h2>
+
+<p>实际的数据采集是靠Arduino来完成的。下图是我阳台上的实物照片。
+<img src="http://pic.yupoo.com/saint-zju/D8ZyYFLU/medium.jpg" alt="" />
+</p>
+
+<p>温湿度数据是通过STH10传感器获取的，光照是通过BH1750，气压是通过BMP085。Arduino下面都有这些传感器成熟的库，我们可以很轻松的获取到数据。然后通过Zigbee传感网络传输到Raspberry Pi。</p>
+
+<p>如果要说是一个气象站，目前这些数据是不够的，还需要降雨，风速，风向等数据。我已经在淘宝看中了<a href="http://item.taobao.com/item.htm?spm=a1z0k.1000775.1.87.DSAua4&amp;id=22747904295">这款</a>，物廉价美的好东西。考虑到安装等问题，我自己打算等毕业搬出学校自己住的时候在自己家里装上。</p>
+
+<h2>数据加工</h2>
+
+<p>请允许我吹下牛，扯下蛋。</p>
+
+<p>我们知道物联网产业一般被砖家分为五个层级：支撑层、感知层、传输层、平台层，以及应用层。的确，如果要把气象数据用起来，我们要完成对这些数据的加工应用。国内某穿戴设备公司号称利用云存储技术采集了N多数据，利用机器学习的方法分析得到了很多有用的数据。<br />
+我的气象数据目前只做了最简单的微博天亮播报。如果要把气象数据用起来，用户关心的不是这些冷冰冰的数字，而是直接告知他们记得准备天冷加衣亦或者打开门窗通风之类的直观感受。</p>
+
+<h2>写在最后</h2>
+
+<p>其实行家看到前面使用Raspberry Pi，肯定会说干嘛不把Blog直接托管在Raspberry Pi上面，另外可以直接用Raspberry Pi的GPIO直接读取传感器数据，不必要再借助Arduino。数据也不需要借助第三方平台，Raspberry Pi自己本身就能实现Xively的功能。<br />
+由于我的Raspberry Pi在学校的内网里面，如果托管在上面外网就无法访问了，另外之所以采用了Arduino，因为我打算搬离寝室后，在家里把无线控制节点也装好。^_^</p>
+
+<p>P.S Raspberry Pi配合Arduino完全是智能家居的倚天剑和屠龙刀。好像小米正在做智能家居，估计是用跑MIUI的什么盒子替换掉Raspberry Pi，然后估计无线解决方案也是基于Wifi的，就像他们前面推出过的那个小米赛车。</p>
+
+<p>推荐一个网站：<a href="http://hugozhu.myalert.info/">When Go meets Raspberry Pi</a>作者的网站完全就是托管在Raspberry Pi，并且利用Raspberry Pi实现了很多服务。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+        <ul>
+          
+          
+            <li class="prev disabled"><a>&larr; Previous</a></li>
+          
+
+            <li><a href="/archive">Archive</a></li>
+
+          
+            <li class="next"><a href="/吐槽/CC98%E5%BF%83%E7%81%B5%E9%95%BF%E8%B4%B4%E5%85%B3%E9%94%AE%E8%AF%8D%E6%B1%87%E6%80%BB/" title="CC98心灵长贴关键词汇总">Next &rarr;</a></li>
+          
+          
+        </ul>
+      </ul>
+    </div>
+    <hr>
+    
+	<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"puhaoblog"};//require,replace your short_name
+	(function() {
+					var ds = document.createElement('script');
+					ds.type = 'text/javascript';ds.async = true;
+					ds.src = 'http://static.duoshuo.com/embed.js';
+					ds.charset = 'UTF-8';
+					(document.getElementsByTagName('head')[0] 
+					|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->	
+	
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>2013-09-07</span></div>
+    <br>
+    <h4>Categories</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/categories/#%E6%8A%80%E6%9C%AF-ref">技术 <span>3</span></a>
+</li>
+    
+      <li>
+  <a href="/categories/#Blog-ref">Blog <span>4</span></a>
+</li>
+    
+    </ul>
+    <br>
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/tags/#Xively-ref">Xively <span>1</span></a>
+</li>
+    
+      <li>
+  <a href="/tags/#GitHub-ref">GitHub <span>4</span></a>
+</li>
+    
+      <li>
+  <a href="/tags/#Arduino-ref">Arduino <span>1</span></a>
+</li>
+    
+      <li>
+  <a href="/tags/#%E6%B0%94%E8%B1%A1%E7%AB%99-ref">气象站 <span>2</span></a>
+</li>
+    
+      <li>
+  <a href="/tags/#Raspberry-Pi-ref">Raspberry Pi <span>3</span></a>
+</li>
+    
+    </ul>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; Puhao Yuan 2013 
+          with help from <a href="http://github.com/wendal/gor" target="_blank" title="Gor -- Fast Blog">Gor</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+		  and Idea from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+        </p>
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cdiv id='cnzz_stat_icon_1000046623'%3E%3C/div%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000046623%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-43356274-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </body>
+</html>
