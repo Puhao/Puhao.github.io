@@ -29,12 +29,12 @@
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://blog.puhao.me/FPGA/NetFPGA/</loc>
+		<loc>http://blog.puhao.me/技术/NetFPGA/</loc>
 		<lastmod>2013-08-24</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://blog.puhao.me/FPGA/FPGA%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</loc>
+		<loc>http://blog.puhao.me/技术/FPGA%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</loc>
 		<lastmod>2013-08-24</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
@@ -49,7 +49,7 @@
 		<changefreq>weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://blog.puhao.me/随想/%E8%AE%B0%E5%BF%86/</loc>
+		<loc>http://blog.puhao.me/吐槽/%E8%AE%B0%E5%BF%86/</loc>
 		<lastmod>2013-08-21</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
