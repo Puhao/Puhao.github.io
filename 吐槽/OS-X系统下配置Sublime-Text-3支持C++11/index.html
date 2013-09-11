@@ -116,22 +116,7 @@
 
 <li><p>编写配置文件如下</p>
 
-<pre><code>{
-&quot;cmd&quot;: [&quot;clang++&quot;, &quot;${file}&quot;,&quot;-std=c++11&quot;, &quot;-stdlib=libc++&quot;, &quot;-o&quot;, &quot;${file_path}/${file_base_name}&quot;],
-&quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,
-&quot;working_dir&quot;: &quot;${file_path}&quot;,
-&quot;selector&quot;: &quot;source.c, source.c++&quot;,
-
-
-&quot;variants&quot;:
-[
-    {
-        &quot;name&quot;: &quot;Run&quot;,
-        &quot;cmd&quot;: [&quot;bash&quot;, &quot;-c&quot;, &quot;clang++  '${file}' -std=c++11 -stdlib=libc++ -o '${file_path}/${file_base_name}' &amp;&amp; '${file_path}/${file_base_name}'&quot;]
-    }
-]
-}
-</code></pre></li>
+<script src="https://gist.github.com/Puhao/6524226.js"></script></li>
 
 <li><p>保存，可以保存名字为<code>C++11.sublime-build</code>,保存在默认目录下。</p></li>
 
