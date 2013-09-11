@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>新的开始</title>
+    <title>OS X系统下配置Sublime Text 3支持C++11</title>
   
     <meta name="author" content="Puhao Yuan">
 
@@ -92,29 +92,67 @@
 
       <div class="content">
         <div class="page-header">
-  <h1>新的开始 </h1>
+  <h1>OS X系统下配置Sublime Text 3支持C++11 </h1>
 </div>
 
 <div class="row">
   <div class="span8">
-    <p>在停止创作了N年之后，我又开始我的写作生涯了。一直想建立个自己的blog，最早想用wordpress这个框架，后来不了了之。后面自己接触到了markdown，然后觉得直接用markdown来写blog是一件多么酷的事情，然后把blog托管在github上面。<br />
-查了一些相关的教程，怎么利用github的page来写文章，但是感觉虽然很geek，但是很烦。终于当我看到了gor，发现这些麻烦的事情又被简化了很多，我立马就动手完成了这个blog。不过作为一个码农，是否惭愧，本来这些简化的事情就是应该是geeker干的事情，结果却沦为了一个只会使用别人工具的码农，o(╯□╰)o。<br />
-另外，我左手上带着一个fitbit flex，然后作为一个geeker，你懂得。<br />
-神马？需求变复杂了？静态页面展示不了了？别忘了我还有raspberry pi呢。</p>
+    <p>OS X系统下面，Sublime无疑是最好用的编辑器，Sublime已经推出了Sublime Text 3（ST3）,官网介绍说Sublime Text 3 makes extensive use of functionality in C++11。</p>
+
+<p>在Sublime Text 3下面，C++的build system默认调用的是g++。要想在Mac OS X 10.8—Mountain Lion 系统下让Sublime Text 3可以直接编译支持C++11，有两种办法。</p>
+
+<ol>
+<li>通过homebrew升级g++版本，然后修改C++的build的配置参数</li>
+<li>换用clang++（前提是安装好了xcode）</li>
+</ol>
+
+<p>明显第二种方式简单省事。</p>
+
+<ol>
+<li><p>打开Sublime，新建一个build-system。</p>
+
+<pre><code>Tools-&gt;Build System-&gt;New Build System
+</code></pre></li>
+
+<li><p>编写配置文件如下</p>
+
+<pre><code>{
+&quot;cmd&quot;: [&quot;clang++&quot;, &quot;${file}&quot;,&quot;-std=c++11&quot;, &quot;-stdlib=libc++&quot;, &quot;-o&quot;, &quot;${file_path}/${file_base_name}&quot;],
+&quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,
+&quot;working_dir&quot;: &quot;${file_path}&quot;,
+&quot;selector&quot;: &quot;source.c, source.c++&quot;,
+
+
+&quot;variants&quot;:
+[
+    {
+        &quot;name&quot;: &quot;Run&quot;,
+        &quot;cmd&quot;: [&quot;bash&quot;, &quot;-c&quot;, &quot;clang++  '${file}' -std=c++11 -stdlib=libc++ -o '${file_path}/${file_base_name}' &amp;&amp; '${file_path}/${file_base_name}'&quot;]
+    }
+]
+}
+</code></pre></li>
+
+<li><p>保存，可以保存名字为<code>C++11.sublime-build</code>,保存在默认目录下。</p></li>
+
+<li><p>Done!<code>Build System</code>保持默认<code>Automatic</code>，这样在Sublime Text 3里面写完程序，直接通过按下<code>CMD + B</code>就可以进行编译了。</p></li>
+</ol>
+
+<p>由于配置文件里面已经通过<code>select</code>指定了文件类型，因此在<code>Build System</code>还是选择<code>Automatic</code>,当我们通过<code>CMD + B</code>Sublime会使用我们保存的<code>C++11.sublime-build</code>配置进行build，非常方便，可以通过<code>CMD + shift + B</code>直接运行程序。</p>
 
     <hr>
     <div class="pagination">
       <ul>
         <ul>
           
-            <li class="prev"><a href="/吐槽/%E8%AE%B0%E5%BF%86/" title="记忆">&larr; Previous</a></li>
           
+            <li class="prev disabled"><a>&larr; Previous</a></li>
           
 
             <li><a href="/archive">Archive</a></li>
 
           
-            <li class="next"><a href="/2013/new-born.html" title="你的第一篇博客">Next &rarr;</a></li>
+            <li class="next"><a href="/技术/%E5%88%A9%E7%94%A8Xively%E5%B9%B3%E5%8F%B0%E5%B1%95%E7%A4%BA%E6%B0%94%E8%B1%A1%E6%95%B0%E6%8D%AE/" title="利用Xively平台展示气象数据">Next &rarr;</a></li>
           
           
         </ul>
@@ -141,7 +179,7 @@
   
   <div class="span4">
     <h4>Published</h4>
-    <div class="date"><span>2013-08-21</span></div>
+    <div class="date"><span>2013-09-11</span></div>
     <br>
     <h4>Categories</h4>
     <ul class="tag_box">
@@ -156,11 +194,11 @@
     <ul class="tag_box">
     
       <li>
-  <a href="/tags/#%E5%86%99%E4%BD%9C-ref">写作 <span>1</span></a>
+  <a href="/tags/#Sublime-ref">Sublime <span>1</span></a>
 </li>
     
       <li>
-  <a href="/tags/#GitHub-ref">GitHub <span>4</span></a>
+  <a href="/tags/#C%2B%2B-ref">C++ <span>3</span></a>
 </li>
     
     </ul>

@@ -106,6 +106,52 @@
 
 
 <div class="post">
+  <h3 class="title"><a href="/吐槽/OS-X%E7%B3%BB%E7%BB%9F%E4%B8%8B%E9%85%8D%E7%BD%AESublime-Text-3%E6%94%AF%E6%8C%81C%2B%2B11/">OS X系统下配置Sublime Text 3支持C++11</a> <span class="date">2013-09-11</span></h3>
+
+  <p>OS X系统下面，Sublime无疑是最好用的编辑器，Sublime已经推出了Sublime Text 3（ST3）,官网介绍说Sublime Text 3 makes extensive use of functionality in C++11。</p>
+
+<p>在Sublime Text 3下面，C++的build system默认调用的是g++。要想在Mac OS X 10.8—Mountain Lion 系统下让Sublime Text 3可以直接编译支持C++11，有两种办法。</p>
+
+<ol>
+<li>通过homebrew升级g++版本，然后修改C++的build的配置参数</li>
+<li>换用clang++（前提是安装好了xcode）</li>
+</ol>
+
+<p>明显第二种方式简单省事。</p>
+
+<ol>
+<li><p>打开Sublime，新建一个build-system。</p>
+
+<pre><code>Tools-&gt;Build System-&gt;New Build System
+</code></pre></li>
+
+<li><p>编写配置文件如下</p>
+
+<pre><code>{
+&quot;cmd&quot;: [&quot;clang++&quot;, &quot;${file}&quot;,&quot;-std=c++11&quot;, &quot;-stdlib=libc++&quot;, &quot;-o&quot;, &quot;${file_path}/${file_base_name}&quot;],
+&quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,
+&quot;working_dir&quot;: &quot;${file_path}&quot;,
+&quot;selector&quot;: &quot;source.c, source.c++&quot;,
+
+
+&quot;variants&quot;:
+[
+    {
+        &quot;name&quot;: &quot;Run&quot;,
+        &quot;cmd&quot;: [&quot;bash&quot;, &quot;-c&quot;, &quot;clang++  '${file}' -std=c++11 -stdlib=libc++ -o '${file_path}/${file_base_name}' &amp;&amp; '${file_path}/${file_base_name}'&quot;]
+    }
+]
+}
+</code></pre></li>
+</ol>
+
+
+  <div class="more">
+    <a href="/吐槽/OS-X%E7%B3%BB%E7%BB%9F%E4%B8%8B%E9%85%8D%E7%BD%AESublime-Text-3%E6%94%AF%E6%8C%81C%2B%2B11/" class="btn">read more..</a>
+  </div>
+</div>
+
+<div class="post">
   <h3 class="title"><a href="/技术/%E5%88%A9%E7%94%A8Xively%E5%B9%B3%E5%8F%B0%E5%B1%95%E7%A4%BA%E6%B0%94%E8%B1%A1%E6%95%B0%E6%8D%AE/">利用Xively平台展示气象数据</a> <span class="date">2013-09-07</span></h3>
 
   <p>利用<a href="https://xively.com/">Xively</a>物联网平台，我的blog里面已经可以展示我阳台的<a href="http://blog.puhao.me/weather/">气象数据了</a>。Xively网站上可以看<a href="https://xively.com/feeds/1768542106">详细数据</a>,Yeelink有更多<a href="http://www.yeelink.net/devices/3762#">历史数据</a>。</p>
@@ -413,27 +459,6 @@ facebook :
 
   <div class="more">
     <a href="/Blog/Blog%E6%8A%98%E8%85%BE/" class="btn">read more..</a>
-  </div>
-</div>
-
-<div class="post">
-  <h3 class="title"><a href="/吐槽/%E8%AE%B0%E5%BF%86/">记忆</a> <span class="date">2013-08-21</span></h3>
-
-  <p>自从接触了markdown之后，我就突然又爱上了写作，突然又想写点什么了，然而有时候也只是写在日记本里。每当自己翻开大学时候写的日记，总想对那个毛头小孩说句：少年，你too young，too simple。成长是一种说不出的滋味。</p>
-
-<p>今天是中元节，前天妈妈跟我打电话说了，今天家里要过节，要给爷爷烧点什么。由于今天下午已经和别人约好了谈事情，我也就没有回家，错过了一次家庭聚餐。不知道从什么时候开始，我开始非常喜欢这样的聚餐，总觉得这个时候是最幸福的时刻。爷爷刚过世那几天，姨夫也每天来乡下，然后舅舅他们什么的，都会来乡下大家坐下来一起吃饭，喝个小酒。那样的日子，一个个从这个大家庭走出去成家立业的人，在人生50岁的时候又回到了大家庭，这种感觉真的太好了，这是爷爷留给我们的。</p>
-
-<p>记得爷爷五七那天，大家围着那座纸房子把过旺的火焰扑灭，舅舅们正好围成一个圈，那种画面似乎会永远停留在心中，有一种说不出的滋味。</p>
-
-<p>爷爷是在4月30日的凌晨1：50过世的，我清楚的记得他弥留时候的情景，自己有时候恍惚中会在脑海中想起。当看着一个自己熟悉的人，总到生命最后的尽头，总能悟道一些以前不曾明白的道理。就像当时阿姨说的，就好像看着一艘大船慢慢沉下去，船对于我们来说，有一种特殊的意思。</p>
-
-<p>现在大家的话题都是弄简历，做题，看算法，找工作，比较薪酬待遇，而我似乎还没有进入这个状态，我总是在疑惑着，这一切都是为了什么？</p>
-
-<p>少年，醒醒！该搬砖了！！恩，人艰不拆，莫装逼，装逼遭雷劈，等你找不到工作了就哭去吧！！</p>
-
-
-  <div class="more">
-    <a href="/吐槽/%E8%AE%B0%E5%BF%86/" class="btn">read more..</a>
   </div>
 </div>
 
