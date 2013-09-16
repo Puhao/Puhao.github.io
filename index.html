@@ -106,6 +106,38 @@
 
 
 <div class="post">
+  <h3 class="title"><a href="/吐槽/%E5%85%AB%E5%8D%A6%E5%A8%B1%E4%B9%90%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D/">八卦娱乐的最大二分匹配</a> <span class="date">2013-09-14</span></h3>
+
+  <h2>八卦关系</h2>
+
+<p>王菲发了条<a href="http://weibo.com/1629810574/A9ifYbmu9?mod=weibotime">微博</a>，告诉大家她离婚了。然后那张著名的娱乐八卦图，就更新成下面这个样子。
+<img src="http://pic.yupoo.com/saint-zju/Da4Jn29w/medium.jpg" alt="八卦图" />
+</p>
+
+<p>大家纷纷吐槽：至此，李亚鹏 周迅 谢霆锋 王菲 窦唯 张柏芝 陈冠希 都是单身了。<br />
+我们又可以玩连连看了。我们可以找找最多可以凑几对情侣出来。</p>
+
+<p>这里根据根据男女性别对所有人进行二分，然后不存在搞基/les情况，不能劈腿，看最多能组成多少对情侣，这正是一个典型的求二分图的最大匹配，我们可以使用匈牙利算法(Hopcroft-Karp算法更高效)来找到最大匹配。
+关于最大二分匹配，请点击<a href="http://ycool.com/post/cfnym64">推荐阅读</a>。</p>
+
+<p>如果是要把所有的可能出现的情侣关系找出来，那我们可以采用DFS的方法搜索所有八卦可能性。</p>
+
+<h2>最大二分匹配</h2>
+
+<p>在上面那张图中，窦家兄妹就保留窦唯，另外两位不参与这个关系图。利用邻接矩阵来保持他们情侣关系。</p>
+
+<pre><code>vector&lt;string&gt; Person ={&quot;王菲&quot;,&quot;李亚鹏&quot;,&quot;瞿颖&quot;,&quot;张柏芝&quot;,&quot;谢霆锋&quot;,&quot;周迅&quot;,&quot;张亚东&quot;,&quot;窦唯&quot;,&quot;李大齐&quot;};
+
+vector&lt;array&lt;int,2&gt; &gt; Rel = { {0,1}, {0,4}, {0,7}, {1,2}, {1,5}, {2,6}, {3,4}, {4,5}, {5,8}};
+</code></pre>
+
+
+  <div class="more">
+    <a href="/吐槽/%E5%85%AB%E5%8D%A6%E5%A8%B1%E4%B9%90%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D/" class="btn">read more..</a>
+  </div>
+</div>
+
+<div class="post">
   <h3 class="title"><a href="/吐槽/OS-X%E7%B3%BB%E7%BB%9F%E4%B8%8B%E9%85%8D%E7%BD%AESublime-Text-3%E6%94%AF%E6%8C%81C%2B%2B11/">OS X系统下配置Sublime Text 3支持C++11</a> <span class="date">2013-09-11</span></h3>
 
   <p>OS X系统下面，Sublime无疑是最好用的编辑器，Sublime已经推出了Sublime Text 3（ST3）,官网介绍说Sublime Text 3 makes extensive use of functionality in C++11。</p>
@@ -414,36 +446,6 @@ facebook :
 
   <div class="more">
     <a href="/Blog/%E4%BD%BF%E7%94%A8%E5%A4%9A%E8%AF%B4/" class="btn">read more..</a>
-  </div>
-</div>
-
-<div class="post">
-  <h3 class="title"><a href="/Blog/Blog%E6%8A%98%E8%85%BE/">Blog折腾</a> <span class="date">2013-08-22</span></h3>
-
-  <p>在程序界有一句话很流行,不要重复造轮子。哦，我不是来讨论<a href="http://taosay.net/?p=575">重复造轮子</a>这件事情的。<br />
-昨天用gor生成了自己的blog，然后我折腾的本性又显示出来了，当然要添加点自己的玩意，随着折腾进行发现自己又陷入了程序员重复造轮子的话题。</p>
-
-<h2>气象站数据</h2>
-
-<p>第一个想到的当然是我的<a href="https://github.com/Puhao/ecomesh">气象站</a>数据问题。我现在的数据直接转发到了<a href="http://www.yeelink.net/">Yeelink</a>，顺便发发<a href="http://weibo.com/u/3551343502">微博</a>。<a href="http://www.yeelink.net/devices/3762#">平台曲线</a>展示了我阳台最近的天气变化。<br />
-但是我想着在这个blog也能展示曲线，我想到的就是我本来用raspberry pi采集数据的存储到本地MySQL数据库的，自己只需再写个后台服务程序，然后前端用个JQuery的库，比如Highcharts,前端还能做个ajax数据交互，实时更新。
-我看了<a href="http://hugozhu.myalert.info/">别人的做法</a>（其实我更想用山寨这个词语，我最擅长的就是模仿，Orz),直接使用了第三方的物联网平台&ndash;<a href="https://xively.com/">xively</a>。<br />
-中国版的物联网开发平台相比之下，真的是模仿了它的外形，但是没有把其它一些辅助的功能做好。提供一个app-key，post接口让大家传数据，但是没有考虑到第三方网站的外链之类的。毕竟国内做物联网的平台的，boss更多是做嵌入式出身，身上少了些互联网基因。<br />
-我知道我不应该再造个轮子了，直接用别人的工具吧。</p>
-
-<p>关于我的气象站，等我把其它部件整完了，我专门写篇Blog来介绍下。</p>
-
-<h2>评论，分享</h2>
-
-<p>原来gor里面集成了disqus，但是毕竟这个里面关联的账号啊都是twitter，facebook，天朝用户都是weibo啊，人人啊之类的账号，果然我就发现了中国版的disqus， <a href="http://www.uyan.cc/">友言</a>。然后发现<a href="http://www.jiathis.com/">加网</a>提供了我们最需要的一键分享功能，而且他们两个是一家公司的。</p>
-
-<h2>主页改动</h2>
-
-<p>当然首页风格也是需要改改的，非常好，gor使用了bootstrap这套框架，因此自己改动页面也非常方便。</p>
-
-
-  <div class="more">
-    <a href="/Blog/Blog%E6%8A%98%E8%85%BE/" class="btn">read more..</a>
   </div>
 </div>
 
