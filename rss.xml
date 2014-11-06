@@ -2,7 +2,13 @@
 <rss version="2.0">  <channel>
     <title>Puhao</title>
     <link>http://blog.puhao.me</link>
-    <pubDate>2014-07-15 02:01:06 +0800</pubDate>
+    <pubDate>2014-11-06 02:12:42 +0800</pubDate>
+    <item>
+      <title>OS X Yosemite(10.10)下无法使用git svn解决方法</title>
+      <link>http://blog.puhao.me/吐槽/OS-X-Yosemite%2810.10%29%E4%B8%8B%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8git-svn%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
+      <pubDate>2014-11-06 12:00:00 +0800</pubDate>
+      <description>&lt;p&gt;自己在OS X下面没有找到好用的免费SVN客户端，又不想使用破解软件，更因为觉得SourceTree实在是太好，对它爱不离手，因此当自己遇到代码管理使用SVN的时候，还是习惯使用&lt;code&gt;git svn&lt;/code&gt;做一个桥接，让代码在我本地是通过GIT来管理的。&lt;/p&gt;&#xA;&#xA;&lt;p&gt;近日电脑系统升级到了Yosemite后，使用&lt;code&gt;git svn clone&lt;/code&gt;命令报错，错误信息如下：&lt;br /&gt;&#xA;&lt;code&gt;Can’t locate SVN/Core.pm in @INC (you may need to install the SVN::Core module)&lt;/code&gt;&lt;/p&gt;&#xA;&#xA;&lt;p&gt;##添加Perl库链接&lt;/p&gt;&#xA;&#xA;&lt;p&gt;这个错误以前在10.9的时候也遇到过，Google一下就找到了&lt;a href=&#34;http://www.contrid.co.za/2014/10/solved-os-x-yosemite-git-svn-broken/&#34;&gt;解决方案&lt;/a&gt;。那个时候&lt;code&gt;Perl&lt;/code&gt;库用的是5.16版本，现在系统升级到了5.18版本后，跟以前一样，添加两条软连接命令：&lt;/p&gt;&#xA;&#xA;&lt;pre&gt;&lt;code&gt;sudo ln -s /Applications/Xcode.app/Contents/Developer/Library/Perl/5.18/darwin-thread-multi-2level/SVN /System/Library/Perl/Extras/5.18/SVN&#xA;&#xA;sudo ln -s /Applications/Xcode.app/Contents/Developer/Library/Perl/5.18/darwin-thread-multi-2level/auto/SVN/ /System/Library/Perl/Extras/5.18/auto/SVN&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&#xA;&lt;p&gt;如果提示你找不到相关的原始文件，需要安装下command line tool，通过命令：&lt;code&gt;xcode-select --install&lt;/code&gt;即可安装。&lt;/p&gt;&#xA;&#xA;&lt;p&gt;##升级GIT&#xA;使用&lt;code&gt;git svn clone $url&lt;/code&gt;还是有新的错误出来。&lt;/p&gt;&#xA;&#xA;&lt;p&gt;&lt;code&gt;git-svn fails &#39;tempfile&#39; can&#39;t be called as a method at /usr/share/perl5/Git.pm line 1042.&lt;/code&gt;&lt;/p&gt;&#xA;&#xA;&lt;p&gt;由于我没有使用系统的GIT,这个Google发现是老版本的GIT的问题，通过HomeBrew升级：&lt;code&gt;brew upgrade git&lt;/code&gt;。&lt;/p&gt;&#xA;&#xA;&lt;p&gt;另外看到网上有人说升级到Yosemite后HomeBrew也不能使用了，看到是因为系统的ruby版本已经是2.0了，原来的配置文件里面使用的是1.8的，可以参考&lt;a href=&#34;http://jcvangent.com/fixing-homebrew-os-x-10-10-yosemite/&#34;&gt;网上的解决方案&lt;/a&gt;。&lt;/p&gt;&#xA;&#xA;&lt;p&gt;##搞定&#xA;终于，我又可以使用&lt;code&gt;git svn&lt;/code&gt;命令了。系统一升级，就带来各种配置问题，╮(╯▽╰)╭，不过Yosemite让我看着感觉蛮美的。^_^&lt;/p&gt;&#xA;</description>
+    </item>
     <item>
       <title>青春不过几届世界杯</title>
       <link>http://blog.puhao.me/吐槽/%E9%9D%92%E6%98%A5%E4%B8%8D%E8%BF%87%E5%87%A0%E5%B1%8A%E4%B8%96%E7%95%8C%E6%9D%AF/</link>
