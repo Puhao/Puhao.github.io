@@ -120,7 +120,7 @@
 <p>近日电脑系统升级到了Yosemite后，使用<code>git svn clone</code>命令报错，错误信息如下：<br />
 <code>Can’t locate SVN/Core.pm in @INC (you may need to install the SVN::Core module)</code></p>
 
-<p>##添加Perl库链接</p>
+<h2>添加Perl库链接</h2>
 
 <p>这个错误以前在10.9的时候也遇到过，Google一下就找到了<a href="http://www.contrid.co.za/2014/10/solved-os-x-yosemite-git-svn-broken/">解决方案</a>。那个时候<code>Perl</code>库用的是5.16版本，现在系统升级到了5.18版本后，跟以前一样，添加两条软连接命令：</p>
 
@@ -131,8 +131,7 @@ sudo ln -s /Applications/Xcode.app/Contents/Developer/Library/Perl/5.18/darwin-t
 
 <p>如果提示你找不到相关的原始文件，需要安装下command line tool，通过命令：<code>xcode-select --install</code>即可安装。</p>
 
-<p>##升级GIT
-使用<code>git svn clone $url</code>还是有新的错误出来。</p>
+<h2>升级GIT</h2>
 
 
   <div class="more">

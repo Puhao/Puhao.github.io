@@ -111,7 +111,7 @@
 <p>近日电脑系统升级到了Yosemite后，使用<code>git svn clone</code>命令报错，错误信息如下：<br />
 <code>Can’t locate SVN/Core.pm in @INC (you may need to install the SVN::Core module)</code></p>
 
-<p>##添加Perl库链接</p>
+<h2>添加Perl库链接</h2>
 
 <p>这个错误以前在10.9的时候也遇到过，Google一下就找到了<a href="http://www.contrid.co.za/2014/10/solved-os-x-yosemite-git-svn-broken/">解决方案</a>。那个时候<code>Perl</code>库用的是5.16版本，现在系统升级到了5.18版本后，跟以前一样，添加两条软连接命令：</p>
 
@@ -122,8 +122,9 @@ sudo ln -s /Applications/Xcode.app/Contents/Developer/Library/Perl/5.18/darwin-t
 
 <p>如果提示你找不到相关的原始文件，需要安装下command line tool，通过命令：<code>xcode-select --install</code>即可安装。</p>
 
-<p>##升级GIT
-使用<code>git svn clone $url</code>还是有新的错误出来。</p>
+<h2>升级GIT</h2>
+
+<p>使用<code>git svn clone $url</code>还是有新的错误出来。</p>
 
 <p><code>git-svn fails 'tempfile' can't be called as a method at /usr/share/perl5/Git.pm line 1042.</code></p>
 
@@ -131,8 +132,9 @@ sudo ln -s /Applications/Xcode.app/Contents/Developer/Library/Perl/5.18/darwin-t
 
 <p>另外看到网上有人说升级到Yosemite后HomeBrew也不能使用了，看到是因为系统的ruby版本已经是2.0了，原来的配置文件里面使用的是1.8的，可以参考<a href="http://jcvangent.com/fixing-homebrew-os-x-10-10-yosemite/">网上的解决方案</a>。</p>
 
-<p>##搞定
-终于，我又可以使用<code>git svn</code>命令了。系统一升级，就带来各种配置问题，╮(╯▽╰)╭，不过Yosemite让我看着感觉蛮美的。^_^</p>
+<h2>搞定</h2>
+
+<p>终于，我又可以使用<code>git svn</code>命令了。系统一升级，就带来各种配置问题，╮(╯▽╰)╭，不过Yosemite让我看着感觉蛮美的。^_^</p>
 
     <hr>
     <div class="pagination">
