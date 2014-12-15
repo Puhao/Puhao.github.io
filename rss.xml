@@ -2,7 +2,13 @@
 <rss version="2.0">  <channel>
     <title>Puhao</title>
     <link>http://blog.puhao.me</link>
-    <pubDate>2014-11-06 02:17:50 +0800</pubDate>
+    <pubDate>2014-12-15 09:53:47 +0800</pubDate>
+    <item>
+      <title>后会无期</title>
+      <link>http://blog.puhao.me/吐槽/%E5%90%8E%E4%BC%9A%E6%97%A0%E6%9C%9F/</link>
+      <pubDate>2014-12-15 12:00:00 +0800</pubDate>
+      <description>&lt;p&gt;李安导演的《少年派的奇幻漂流》有一句很经典的台词：人生就是不断地放下，可是我们还没来得及好好地告别！&lt;/p&gt;&#xA;&#xA;&lt;iframe src=&#34;http://miantiao.jd-app.com/xiamiplayer/1773340641&#34; frameborder=&#34;0&#34; scrolling=&#34;0&#34; width=&#34;430&#34; height=&#34;200&#34; allowtransparency&gt;&lt;/iframe&gt;&#xA;&#xA;&lt;p&gt;生活中很多事情的道理都是一样的，当你错过了那个时间，即使你准备的再好都没有用了。&lt;/p&gt;&#xA;</description>
+    </item>
     <item>
       <title>OS X Yosemite(10.10)下无法使用git svn解决方法</title>
       <link>http://blog.puhao.me/吐槽/OS-X-Yosemite%2810.10%29%E4%B8%8B%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8git-svn%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>

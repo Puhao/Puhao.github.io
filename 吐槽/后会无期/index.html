@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>八卦娱乐的最大二分匹配</title>
+    <title>后会无期</title>
   
     <meta name="author" content="Puhao Yuan">
 
@@ -99,126 +99,30 @@
 
       <div class="content">
         <div class="page-header">
-  <h1>八卦娱乐的最大二分匹配 </h1>
+  <h1>后会无期 </h1>
 </div>
 
 <div class="row">
   <div class="span8">
-    <h2>八卦关系</h2>
+    <p>李安导演的《少年派的奇幻漂流》有一句很经典的台词：人生就是不断地放下，可是我们还没来得及好好地告别！</p>
 
-<p>王菲发了条<a href="http://weibo.com/1629810574/A9ifYbmu9?mod=weibotime">微博</a>，告诉大家她离婚了。然后那张著名的娱乐八卦图，就更新成下面这个样子。
-<img src="http://pic.yupoo.com/saint-zju/Da4Jn29w/medium.jpg" alt="八卦图" />
-</p>
+<iframe src="http://miantiao.jd-app.com/xiamiplayer/1773340641" frameborder="0" scrolling="0" width="430" height="200" allowtransparency></iframe>
 
-<p>大家纷纷吐槽：至此，李亚鹏 周迅 谢霆锋 王菲 窦唯 张柏芝 陈冠希 都是单身了。<br />
-我们又可以玩连连看了。我们可以找找最多可以凑几对情侣出来。</p>
-
-<p>这里根据根据男女性别对所有人进行二分，然后不存在搞基/les情况，不能劈腿，看最多能组成多少对情侣，这正是一个典型的求二分图的最大匹配，我们可以使用匈牙利算法(Hopcroft-Karp算法更高效)来找到最大匹配。
-关于最大二分匹配，请点击<a href="http://ycool.com/post/cfnym64">推荐阅读</a>。</p>
-
-<p>如果是要把所有的可能出现的情侣关系找出来，那我们可以采用DFS的方法搜索所有八卦可能性。</p>
-
-<h2>最大二分匹配</h2>
-
-<p>在上面那张图中，窦家兄妹就保留窦唯，另外两位不参与这个关系图。利用邻接矩阵来保持他们情侣关系。</p>
-
-<pre><code>vector&lt;string&gt; Person ={&quot;王菲&quot;,&quot;李亚鹏&quot;,&quot;瞿颖&quot;,&quot;张柏芝&quot;,&quot;谢霆锋&quot;,&quot;周迅&quot;,&quot;张亚东&quot;,&quot;窦唯&quot;,&quot;李大齐&quot;};
-
-vector&lt;array&lt;int,2&gt; &gt; Rel = { {0,1}, {0,4}, {0,7}, {1,2}, {1,5}, {2,6}, {3,4}, {4,5}, {5,8}};
-</code></pre>
-
-<p>从王菲开始，依次使用匈牙利算法，寻找增多一对情侣的可能性。对于某位明星能否找到情侣，有绯闻关系就试图配对，如果对方没有情侣，则配对他们，如果有，则判断原配能否找到情侣，能找到则当第三者，拆散他们，让原配找配对新欢去。原配能否找到，这正是一个递归关系，最后要么能够找到一个单身的配对下，要么就是最后形成一个环，不能再增多一对了。</p>
-
-<pre><code>bool Hungary(int n)
-{
-    for(int i=0;i&lt;N;i++)
-    {
-        if(graph[n][i] &amp;&amp; !visited[i])
-        {
-            if (PreNum[i] == -1)
-            {
-                PreNum[i] = n;
-                return true;
-            }
-            else
-            {
-                visited[i] = true;
-                if(Hungary(PreNum[i]))
-                {
-                    PreNum[i] = n;
-                    visited[i] = false;
-                    return true;
-                }
-                visited[i] = false;
-            }
-        }
-    }
-    return false;
-}
-</code></pre>
-
-<p>通过匈牙利算法，最后我们找到了一种最多配对的方式，最多有4对情侣。</p>
-
-<h2>DFS检索所有可能</h2>
-
-<p>如果是要把所有的可能出现的情侣关系找出来，那我们可以采用DFS的方法找到所有八卦可能性。</p>
-
-<p>在上面那张图中，窦家兄妹就保留窦唯，另外两位不参与这个关系图。利用邻接矩阵来保持他们情侣关系。</p>
-
-<pre><code>vector&lt;string&gt; Person ={&quot;王菲&quot;,&quot;李亚鹏&quot;,&quot;瞿颖&quot;,&quot;张柏芝&quot;,&quot;谢霆锋&quot;,&quot;周迅&quot;,&quot;张亚东&quot;,&quot;窦唯&quot;,&quot;李大齐&quot;};
-
-vector&lt;array&lt;int,2&gt; &gt; Rel = { {0,1}, {0,4}, {0,7}, {1,2}, {1,5}, {2,6}, {3,4}, {4,5}, {5,8}};
-</code></pre>
-
-<p>然后采用DFS的方式，找到所有可能存在的八卦情况。</p>
-
-<pre><code>void dfs(int n,vector&lt;array&lt;int,N&gt; &gt; &amp;group,array&lt;int,N&gt; &amp;match)
-{
-    if (n &gt;= N)
-    {
-        group.push_back(match);
-        return;
-    }
-    //单身状态下，找个情侣
-    if (match[n] == -1)
-    {
-        for(int i=n;i&lt;N;i++)
-        {
-            if(graph[n][i] &amp;&amp; match[i] == -1)   //绯闻情侣单身
-            {
-                {
-                    match[i] = n;
-                    match[n] = i;
-                    dfs(n+1,group,match);
-                    match[i] = -1;
-                    match[n] = -1;
-                }
-            }
-        }
-    }
-    //恋爱中或者保持单身 
-    dfs(n+1,group,match);
-    return;
-}
-</code></pre>
-
-<p>运行程序可以得到，一共有56种情况，包括了情侣最少的时候（都单身），最多的时候有4对情侣。</p>
-
-<p>P.S 出于好玩的心理，我们可以多增加点人，比如把冠希哥，章子怡等人加入这个关系矩阵，然后来找找最多有多少对情侣，或者把所有可能的情侣关系罗列看看。可以点击<a href="https://github.com/Puhao/BiPartition">源代码</a>试试。</p>
+<p>生活中很多事情的道理都是一样的，当你错过了那个时间，即使你准备的再好都没有用了。</p>
 
     <hr>
     <div class="pagination">
       <ul>
         <ul>
           
-            <li class="prev"><a href="/吐槽/Get-busy-living%2C-or-get-busy-dying/" title="Get busy living, or get busy dying">&larr; Previous</a></li>
           
+            <li class="prev disabled"><a>&larr; Previous</a></li>
           
 
             <li><a href="/archive">Archive</a></li>
 
           
-            <li class="next"><a href="/吐槽/OS-X%E7%B3%BB%E7%BB%9F%E4%B8%8B%E9%85%8D%E7%BD%AESublime-Text-3%E6%94%AF%E6%8C%81C%2B%2B11/" title="OS X系统下配置Sublime Text 3支持C++11">Next &rarr;</a></li>
+            <li class="next"><a href="/吐槽/OS-X-Yosemite%2810.10%29%E4%B8%8B%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8git-svn%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="OS X Yosemite(10.10)下无法使用git svn解决方法">Next &rarr;</a></li>
           
           
         </ul>
@@ -245,7 +149,7 @@ vector&lt;array&lt;int,2&gt; &gt; Rel = { {0,1}, {0,4}, {0,7}, {1,2}, {1,5}, {2,
   
   <div class="span4">
     <h4>Published</h4>
-    <div class="date"><span>2013-09-14</span></div>
+    <div class="date"><span>2014-12-15</span></div>
     <br>
     <h4>Categories</h4>
     <ul class="tag_box">
@@ -254,21 +158,13 @@ vector&lt;array&lt;int,2&gt; &gt; Rel = { {0,1}, {0,4}, {0,7}, {1,2}, {1,5}, {2,
   <a href="/categories/#%E5%90%90%E6%A7%BD-ref">吐槽 <span>9</span></a>
 </li>
     
-      <li>
-  <a href="/categories/#%E6%8A%80%E6%9C%AF-ref">技术 <span>6</span></a>
-</li>
-    
     </ul>
     <br>
     <h4>Tags</h4>
     <ul class="tag_box">
     
       <li>
-  <a href="/tags/#DFS-ref">DFS <span>2</span></a>
-</li>
-    
-      <li>
-  <a href="/tags/#%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D-ref">二分匹配 <span>1</span></a>
+  <a href="/tags/#%E5%90%8E%E4%BC%9A%E6%97%A0%E6%9C%9F-ref">后会无期 <span>1</span></a>
 </li>
     
     </ul>
